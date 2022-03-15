@@ -110,4 +110,14 @@ public class Account {
 	public void setOfficeAddress(Address officeAddress) {
 		this.officeAddress = officeAddress;
 	}
+
+	public void addStudy(Study study) {
+		study.setOwner(this);
+		this.getStudies().add(study);
+	}
+	
+	public void removeStudy(Study study) {
+		study.setOwner(null); // this 정보 삭제
+		this.getStudies().remove(study);
+	}
 }

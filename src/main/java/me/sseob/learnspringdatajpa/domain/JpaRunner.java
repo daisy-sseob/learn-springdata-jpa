@@ -19,6 +19,9 @@ public class JpaRunner implements ApplicationRunner{
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
+		Study study = new Study();
+		study.setName("spring data jpa - sseob");
+		
 		Account account = new Account();
 		account.setUsername("sseob");
 		account.setPassword("1234");
@@ -27,18 +30,12 @@ public class JpaRunner implements ApplicationRunner{
 				.zipCode("5554")
 				.street("도래울 1로")
 				.build());
-		
 		account.setOfficeAddress(Address.builder()
 				.city("서울 특별시")
 				.zipCode("533524")
 				.street("가산디지털 1로")
 				.build());
-
-		Study study = new Study();
-		study.setName("spring data jpa - sseob");
-		study.setOwner(account);
-
-		account.getStudies().add(study);
+		account.addStudy(study);
 		
 		final Session session = entityManager.unwrap(Session.class);
 		session.save(account);
