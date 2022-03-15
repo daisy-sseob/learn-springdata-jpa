@@ -40,5 +40,12 @@ public class JpaRunner implements ApplicationRunner{
 		final Session session = entityManager.unwrap(Session.class);
 		session.save(account);
 		session.save(study);
+
+		// 영속성 컨텍스트가 관리하는 객체. 그러니까 persistent 상태의 객체의 데이터를 몇번이나 수정했다고 해서 모두 update query가 발생하지 않는다. 
+		final Account sseob = session.load(Account.class, account.getId());
+		sseob.setUsername("심현섭");
+		sseob.setUsername("심현섭 심현섭");
+		sseob.setUsername("심현섭 sseob");
+		System.out.println("load.getUsername() = " + sseob.getUsername());
 	}
 }
