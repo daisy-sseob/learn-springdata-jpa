@@ -34,7 +34,14 @@ public class JpaRunner implements ApplicationRunner{
 				.street("가산디지털 1로")
 				.build());
 
+		Study study = new Study();
+		study.setName("spring data jpa - sseob");
+		study.setOwner(account);
+
+		account.getStudies().add(study);
+		
 		final Session session = entityManager.unwrap(Session.class);
 		session.save(account);
+		session.save(study);
 	}
 }

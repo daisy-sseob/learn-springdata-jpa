@@ -2,26 +2,28 @@ package me.sseob.learnspringdatajpa.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Account {
 
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	private Long id;
-	
-	@Column(nullable = false, unique = true)
+
 	private String username;
-	
+
 	private String password;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created = new Date();
-	
+
 	private String yes;
-	
+
 	@Transient
 	private String no;
-	
+
 	@Embedded
 	@AttributeOverrides({
 			@AttributeOverride(name = "street", column = @Column(name = "home_street")),
@@ -30,9 +32,20 @@ public class Account {
 			@AttributeOverride(name = "state", column = @Column(name = "home_state"))
 	})
 	private Address homeAddress;
-	
+
 	@Embedded
 	private Address officeAddress;
+
+	@OneToMany(mappedBy = "owner")
+	private Set<Study> studies = new HashSet<>();
+
+	public Set<Study> getStudies() {
+		return studies;
+	}
+
+	public void setStudies(Set<Study> studies) {
+		this.studies = studies;
+	}
 
 	public Long getId() {
 		return id;
