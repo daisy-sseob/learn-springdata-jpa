@@ -20,7 +20,7 @@ public class JpaRunner implements ApplicationRunner{
 	public void run(ApplicationArguments args) throws Exception {
 		
 		Account account = new Account();
-		account.setUsername("현섭");
+		account.setUsername("sseob");
 		account.setPassword("1234");
 
 		final Session session = entityManager.unwrap(Session.class);
