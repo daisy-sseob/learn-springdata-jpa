@@ -22,6 +22,17 @@ public class JpaRunner implements ApplicationRunner{
 		Account account = new Account();
 		account.setUsername("sseob");
 		account.setPassword("1234");
+		account.setHomeAddress(Address.builder()
+				.city("고양시")
+				.zipCode("5554")
+				.street("도래울 1로")
+				.build());
+		
+		account.setOfficeAddress(Address.builder()
+				.city("서울 특별시")
+				.zipCode("533524")
+				.street("가산디지털 1로")
+				.build());
 
 		final Session session = entityManager.unwrap(Session.class);
 		session.save(account);
