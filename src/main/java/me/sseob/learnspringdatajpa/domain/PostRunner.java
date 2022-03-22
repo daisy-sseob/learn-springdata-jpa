@@ -33,7 +33,11 @@ public class PostRunner implements ApplicationRunner {
 		
 		final Session session = entityManager.unwrap(Session.class);
 		
-		// cascade option을 통해 영속성을 전이함
-		session.save(post);
+		// cascade option을 통해 영속성을 전이하여 comment까지 저장
+//		session.save(post);
+
+		// CascadeType Remove. 영속성 전이를 통해 comment까지 삭제
+//		final Post findPost = session.get(Post.class, 5L);
+//		session.delete(findPost);
 	}
 }
