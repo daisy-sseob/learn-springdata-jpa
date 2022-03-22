@@ -12,7 +12,10 @@ public class Post {
 
 	private String title;
 
-	@OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(mappedBy = "post",
+			cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+			fetch = FetchType.LAZY
+	)
 	private Set<Comment> comments = new HashSet<>();
 
 	public void addComment(Comment comment) {
@@ -42,5 +45,13 @@ public class Post {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Post{" +
+				"id=" + id +
+				", title='" + title + '\'' +
+				'}';
 	}
 }

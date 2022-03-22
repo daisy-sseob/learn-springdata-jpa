@@ -1,5 +1,7 @@
-package me.sseob.learnspringdatajpa.domain;
+package me.sseob.learnspringdatajpa.domain.runner;
 
+import me.sseob.learnspringdatajpa.domain.Comment;
+import me.sseob.learnspringdatajpa.domain.Post;
 import org.hibernate.Session;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -34,10 +36,9 @@ public class PostRunner implements ApplicationRunner {
 		final Session session = entityManager.unwrap(Session.class);
 		
 		// cascade option을 통해 영속성을 전이하여 comment까지 저장
-//		session.save(post);
+		session.save(post);
 
 		// CascadeType Remove. 영속성 전이를 통해 comment까지 삭제
-//		final Post findPost = session.get(Post.class, 5L);
 //		session.delete(findPost);
 	}
 }

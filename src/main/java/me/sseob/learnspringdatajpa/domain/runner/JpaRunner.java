@@ -1,5 +1,8 @@
-package me.sseob.learnspringdatajpa.domain;
+package me.sseob.learnspringdatajpa.domain.runner;
 
+import me.sseob.learnspringdatajpa.domain.Account;
+import me.sseob.learnspringdatajpa.domain.Address;
+import me.sseob.learnspringdatajpa.domain.Study;
 import org.hibernate.Session;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
