@@ -1,9 +1,8 @@
 # README
 
-# Docker
+> spring data jpa를 학습한다.
 
-## docker  
-
+## Docker cli 참고하기
 - postgres image 받기 및 실행 
 ```
 $ docker run -p 5432:5432 -e POSTGRES_PASSWORD=1234 -e POSTGRES_USER=sseob -e POSTGRES_DB=springdata --name postgres_boot -d postgres
