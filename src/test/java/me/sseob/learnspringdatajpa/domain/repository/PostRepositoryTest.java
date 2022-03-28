@@ -19,7 +19,7 @@ class PostRepositoryTest {
 	PostRepository postRepository;
 	
 	@Test
-	@Rollback(false) // Transactional annotation이 포함 되어있기 때문에 기본 세팅으로는 test코드에서 query를 확인할 수 없다.
+	@Rollback(false) // @DataJpaTest annotation은 @Transactional annotation이 포함 되어있기 때문에 기본 세팅으로는 test코드에서 query를 확인할 수 없다.
 	public void crudRepository() {
 		Post post = new Post();
 		post.setTitle("테스트 post");
@@ -43,5 +43,9 @@ class PostRepositoryTest {
 		assertThat(pageContains.getNumber()).isEqualTo(0);
 		assertThat(pageContains.getNumberOfElements()).isEqualTo(1);
 		assertThat(pageContains.getSize()).isEqualTo(10);
+
+		long test = postRepository.countByTitleContains("test");
+		assertThat(test).isEqualTo(0);
+		
 	}
 }
