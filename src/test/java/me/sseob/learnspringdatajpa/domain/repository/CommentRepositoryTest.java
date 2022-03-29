@@ -22,22 +22,15 @@ class CommentRepositoryTest {
 	@Test
 	public void crud() {
 
-		Comment comment = new Comment();
-		comment.setComment("댓글 1");
-		comment.setLikeCount(1000);
-		
-		Comment comment2 = new Comment();
-		comment2.setComment("댓글 2");
-		comment2.setLikeCount(10);
-		
-		commentRepository.save(comment);
-		commentRepository.save(comment2);
+		createAndSaveComment("sseob 댓글 1", 1000);
+		createAndSaveComment("현섭 댓글 2", 10);
+		createAndSaveComment("이거 너무 재밌는데요 ? sseob", 11);
 
 		List<Comment> comments = commentRepository.findAll();
-		assertThat(comments.size()).isEqualTo(2);
+		assertThat(comments.size()).isEqualTo(3);
 
 		long count = commentRepository.count();
-		assertThat(count).isEqualTo(2);
+		assertThat(count).isEqualTo(3);
 		
 		Optional<Comment> commentById = commentRepository.findById(1L);
 		assertThat(commentById).isNotEmpty();
@@ -47,5 +40,19 @@ class CommentRepositoryTest {
 		assertThat(byLikeCountGreaterThanAndPost.getTotalPages()).isEqualTo(1);
 
 		byLikeCountGreaterThanAndPost.stream().forEach(System.out::println);
+
+		List<Comment> findBycommentComtains = commentRepository.findByCommentContainsIgnoreCaseAndLikeCountGreaterThanEqual("SSEOB", 10);
+		findBycommentComtains.forEach(System.out::println);
+		assertThat(findBycommentComtains.size()).isEqualTo(2);
+
+		List<Comment> commentContainsOrderByLikeCount = commentRepository.findByCommentContainsOrderByLikeCount("댓글");
+		assertThat(commentContainsOrderByLikeCount).last().hasFieldOrPropertyWithValue("likeCount", 1000);
+	}
+
+	private void createAndSaveComment(String s, int i) {
+		Comment comment = new Comment();
+		comment.setComment(s);
+		comment.setLikeCount(i);
+		commentRepository.save(comment);
 	}
 }
