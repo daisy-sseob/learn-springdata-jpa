@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 @Entity
 public class Comment {
@@ -15,6 +16,26 @@ public class Comment {
 
 	@ManyToOne
 	private Post post;
+
+	private Integer likeCount;
+
+	private LocalDateTime created;
+
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(Integer like) {
+		this.likeCount = like;
+	}
 
 	public Long getId() {
 		return id;
@@ -38,5 +59,15 @@ public class Comment {
 
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	@Override
+	public String toString() {
+		return "Comment{" +
+				"id=" + id +
+				", comment='" + comment + '\'' +
+				", created=" + created +
+				", likeCount=" + likeCount +
+				'}';
 	}
 }
