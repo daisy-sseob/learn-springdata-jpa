@@ -1,9 +1,9 @@
 package me.sseob.learnspringdatajpa.domain.repository;
 
-import me.sseob.learnspringdatajpa.domain.Comment;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,5 +18,6 @@ public interface BaseRepository<T, Id extends Serializable> extends Repository<T
 
 	long count();
 
+	@Nullable
 	<E extends T> Optional<E> findById(Id id);
 }
