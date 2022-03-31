@@ -47,6 +47,8 @@ class CommentRepositoryTest {
 
 		List<Comment> commentContainsOrderByLikeCount = commentRepository.findByCommentContainsOrderByLikeCount("댓글");
 		assertThat(commentContainsOrderByLikeCount).last().hasFieldOrPropertyWithValue("likeCount", 1000);
+		
+		
 	}
 
 	private void createAndSaveComment(String s, int i) {
