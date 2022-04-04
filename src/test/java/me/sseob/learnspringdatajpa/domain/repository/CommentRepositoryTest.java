@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,8 +51,14 @@ class CommentRepositoryTest {
 		assertThat(commentContainsOrderByLikeCount.getNumberOfElements()).isEqualTo(2);
 		assertThat(commentContainsOrderByLikeCount).first().hasFieldOrPropertyWithValue("likeCount", 10);
 
-		Page<Comment> likeCount = commentRepository.findByLikeCountLessThan(100, PageRequest.of(0, 10), Sort.by(Sort.Direction.DESC, "likeCount"));
+		Page<Comment> likeCount = commentRepository.findByLikeCountLessThan(100, PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "likeCount")) );
 		assertThat(likeCount).first().hasFieldOrPropertyWithValue("likeCount", 11);
+
+		try (Stream<Comment> byLikeCountNotNull = commentRepository.findByLikeCountNotNull(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "likeCount")))) {
+			Comment firstComment = byLikeCountNotNull.findFirst().get();
+			assertThat(firstComment.getLikeCount()).isEqualTo(1000);
+		}
+		
 	}
 
 	private void createAndSaveComment(String s, int i) {

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.RepositoryDefinition;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @RepositoryDefinition(domainClass = Comment.class, idClass = Long.class) // JpaRepository 상속받지 않고 직접 정의하기.
 public interface CommentRepository extends BaseRepository<Comment, Long> {
@@ -18,6 +19,8 @@ public interface CommentRepository extends BaseRepository<Comment, Long> {
 
 	Page<Comment> findByCommentContainsOrderByLikeCount(String keyword, Pageable pageable);
 
-	Page<Comment> findByLikeCountLessThan(int likeCount, Pageable pageable, Sort sort);
+	Page<Comment> findByLikeCountLessThan(int likeCount, Pageable pageable);
+
+	Stream<Comment> findByLikeCountNotNull(Pageable pageable);
 	
 }
