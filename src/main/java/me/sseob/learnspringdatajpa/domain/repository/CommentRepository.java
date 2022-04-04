@@ -16,5 +16,8 @@ public interface CommentRepository extends BaseRepository<Comment, Long> {
 
 	Page<Comment> findByLikeCountGreaterThanAndPost(int likeCount, Post post, Pageable pageable);
 
-	Page<Comment> findByCommentContainsOrderByLikeCount(String keyword, Pageable pageable, Sort sort);
+	Page<Comment> findByCommentContainsOrderByLikeCount(String keyword, Pageable pageable);
+
+	Page<Comment> findByLikeCountLessThan(int likeCount, Pageable pageable, Sort sort);
+	
 }

@@ -46,11 +46,12 @@ class CommentRepositoryTest {
 		findBycommentComtains.forEach(System.out::println);
 		assertThat(findBycommentComtains.size()).isEqualTo(2);
 
-		Page<Comment> commentContainsOrderByLikeCount = commentRepository
-				.findByCommentContainsOrderByLikeCount("댓글", PageRequest.of(0, 10), Sort.by(Sort.Direction.DESC, "LikeCount"));
+		Page<Comment> commentContainsOrderByLikeCount = commentRepository.findByCommentContainsOrderByLikeCount("댓글", PageRequest.of(0, 10));
 		assertThat(commentContainsOrderByLikeCount.getNumberOfElements()).isEqualTo(2);
-		assertThat(commentContainsOrderByLikeCount).first().hasFieldOrPropertyWithValue("likeCount", 1000);
-		
+		assertThat(commentContainsOrderByLikeCount).first().hasFieldOrPropertyWithValue("likeCount", 10);
+
+		Page<Comment> likeCount = commentRepository.findByLikeCountLessThan(100, PageRequest.of(0, 10), Sort.by(Sort.Direction.DESC, "likeCount"));
+		assertThat(likeCount).first().hasFieldOrPropertyWithValue("likeCount", 11);
 	}
 
 	private void createAndSaveComment(String s, int i) {
