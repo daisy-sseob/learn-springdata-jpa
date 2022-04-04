@@ -4,6 +4,7 @@ import me.sseob.learnspringdatajpa.domain.Comment;
 import me.sseob.learnspringdatajpa.domain.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.RepositoryDefinition;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public interface CommentRepository extends BaseRepository<Comment, Long> {
 
 	Page<Comment> findByLikeCountGreaterThanAndPost(int likeCount, Post post, Pageable pageable);
 
-	List<Comment> findByCommentContainsOrderByLikeCount(String keyword);
+	Page<Comment> findByCommentContainsOrderByLikeCount(String keyword, Pageable pageable, Sort sort);
 }

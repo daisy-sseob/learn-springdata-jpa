@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,9 +46,10 @@ class CommentRepositoryTest {
 		findBycommentComtains.forEach(System.out::println);
 		assertThat(findBycommentComtains.size()).isEqualTo(2);
 
-		List<Comment> commentContainsOrderByLikeCount = commentRepository.findByCommentContainsOrderByLikeCount("댓글");
-		assertThat(commentContainsOrderByLikeCount).last().hasFieldOrPropertyWithValue("likeCount", 1000);
-		
+		Page<Comment> commentContainsOrderByLikeCount = commentRepository
+				.findByCommentContainsOrderByLikeCount("댓글", PageRequest.of(0, 10), Sort.by(Sort.Direction.DESC, "LikeCount"));
+		assertThat(commentContainsOrderByLikeCount.getNumberOfElements()).isEqualTo(2);
+		assertThat(commentContainsOrderByLikeCount).first().hasFieldOrPropertyWithValue("likeCount", 1000);
 		
 	}
 
