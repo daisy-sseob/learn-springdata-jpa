@@ -17,3 +17,7 @@ $ docker exec -i -t postgres_boot bash
 ```
 $ psql --username=sseob --dbname=springdata
 ```
+- 또는
+```
+$ psql -U sseob -db springdata
+```
