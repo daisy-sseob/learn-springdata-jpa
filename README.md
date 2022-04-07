@@ -24,3 +24,4 @@ $ psql -U sseob -db springdata
 //자세한건 help 참고하자
 $ psql -help 
 ```
+
